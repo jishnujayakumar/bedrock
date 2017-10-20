@@ -1,0 +1,495 @@
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+@import '../pebbles/includes/lib';
+@import '../pebbles/components/newsletter';
+@import '../pebbles/components/modal';
+@import '../hubs/sections';
+@import '../hubs/sub-nav';
+@import '../quantum/lib';
+@import '../quantum/common';
+@import '../quantum/buttons';
+@import '../quantum/features-scroller';
+
+
+$color-focus-purple: #c40771;
+
+@mixin rooftop-heading($font-weight: normal) {
+    @include font-size-level3;
+    font-weight: $font-weight;
+    margin-bottom: 1.5em;
+    padding-top: 1em;
+    position: relative;
+
+    &:before {
+        border-radius: 5px;
+        content: '';
+        height: 5px;
+        left: 50%;
+        margin-left: -1.5em;
+        position: absolute;
+        top: 0;
+        width: 3em;
+    }
+
+    @media #{$mq-desktop} {
+        &:before {
+            left: 0;
+            margin-left: 0;
+        }
+    }
+}
+
+
+.main-header {
+    background: #0060df;
+    background: url('/media/img/firefox/quantum/fox-tail-header.png') bottom center no-repeat,
+                linear-gradient(to bottom, #0060df 7%, #0095ff 100%);
+    color: #fff;
+    padding: 30px 0 0;
+    position: relative;
+    text-align: center;
+    z-index: 1;
+
+    h1 {
+        @include font-size-level2;
+        font-weight: bold;
+        margin-bottom: 0.75em;
+    }
+
+    h3 {
+        @include font-size-level4;
+        margin-bottom: 0.75em;
+    }
+
+    a,
+    a:active,
+    a:focus,
+    a:hover,
+    a:link,
+    a:visited {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    @media #{$mq-desktop} {
+        text-align: left;
+    }
+}
+
+#header-product-content {
+    @media #{$mq-desktop} {
+        @include clearfix;
+
+        @supports (display: flex) {
+            display: flex;
+            justify-content: space-between;
+
+            // remove pseudo element so it doesn't get flexboxed
+            &:after {
+                content: none;
+            }
+        }
+    }
+}
+
+.header-product {
+    background: rgba(255, 255, 255, 0.2);
+    margin-bottom: 40px;
+    padding: 20px;
+
+    button {
+        display: block;
+        margin: 0 auto 0.5em;
+    }
+
+    h2 {
+        @include font-size-level4;
+        font-weight: bold;
+        margin-bottom: 0.75em;
+        min-height: 110px;
+        text-align: center;
+
+        &:before {
+            content: '';
+            display: block;
+            height: 110px;
+            margin: 0 auto;
+            width: 110px;
+        }
+    }
+
+    .header-product-image {
+        display: none;
+    }
+
+    @media #{$mq-tablet} {
+        @include clearfix;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 600px;
+        padding: 40px;
+
+        button {
+            margin-left: 0;
+        }
+
+        h2 {
+            text-align: left;
+
+            &:before {
+                display: inline-block;
+                margin: 0 6px -45px 0;
+            }
+        }
+
+        .header-product-copy {
+            float: left;
+            text-align: left;
+            width: 65%;
+        }
+
+        .header-product-ctas {
+            display: inline-block;
+            text-align: center;
+        }
+
+        .header-product-image {
+            display: block;
+            float: right;
+            width: 30%;
+
+            img {
+                float: right;
+            }
+        }
+    }
+
+    @media #{$mq-desktop} {
+        float: left;
+        margin-left: 10px;
+        padding: 20px;
+        width: calc(50% - 50px);
+
+        &:first-child {
+            margin-left: 0;
+            margin-right: 10px;
+        }
+
+        h2:before {
+            display: block;
+            margin: 0;
+        }
+
+        // makes the semi-opaque boxes the same height
+        @supports (display: flex) {
+            display: flex;
+            flex: 0 0 auto;
+            float: none;
+            justify-content: space-between;
+
+            // remove pseudo element so it doesn't get flexboxed
+            &:after {
+                content: none;
+            }
+
+            .header-product-copy {
+                float: none;
+            }
+
+            .header-product-image {
+                float: none;
+                align-self: center;
+            }
+        }
+    }
+
+    @media #{$mq-desktop-wide} {
+        h2:before {
+            display: inline-block;
+            margin: 0 6px -45px 0;
+        }
+    }
+}
+
+.inpage-link:after {
+    background: url('/media/img/firefox/mobile/chevron-down.svg') top right no-repeat;
+    content: '';
+    display: inline-block;
+    height: 10px;
+    width: 30px;
+}
+
+#header-firefox h2:before {
+    @include at2x('/media/img/logos/firefox/logo-quantum-small.png', 108px, 107px);
+}
+
+#header-focus h2:before {
+    @include at2x('/media/img/logos/firefox/logo-focus-small.png', 109px, 110px);
+}
+
+.button.quantum {
+    font-weight: bold;
+}
+
+.button.quantum.button-focus {
+    background-color: #fff;
+    border-color: #fff;
+    color: $color-focus-purple;
+
+    &:focus,
+    &:hover {
+        background-color: #fff;
+    }
+}
+
+.page-article {
+    margin-top: 40px;
+
+    &> .content {
+        padding-bottom: 0;
+    }
+}
+
+.features-scroller-section.page-section {
+    .feature-content {
+        padding: 40px 1em 20px;
+        text-align: center;
+
+        em {
+            display: block;
+            margin-bottom: 1em;
+        }
+
+        h3 {
+            @include rooftop-heading;
+            margin-bottom: 1em;
+        }
+
+        img {
+            margin-top: 2em;
+        }
+
+        &:last-child {
+            padding-bottom: 20px;
+        }
+    }
+
+    @media #{$mq-desktop} {
+        &:before {
+            background-color: #003eaa;
+            background-image: linear-gradient(to bottom, #003EAA 0%, #004EC2 8%, #0080FF 35%, #00FEFF 100%);
+            bottom: 0;
+            content: '';
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 50%;
+        }
+
+        .feature-content {
+            text-align: left;
+        }
+    }
+}
+
+.features-scroller-section.page-section .features-scroller-header {
+    display: none;
+
+    @media #{$mq-desktop} {
+        display: block;
+    }
+}
+
+.page-article-heading {
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    border-bottom: 1px solid #d7d7db;
+    padding-bottom: 273px;
+    text-align: center;
+
+    h2 {
+        @include rooftop-heading(bold);
+    }
+
+    @media #{$mq-phone-wide} {
+        padding-bottom: 338px;
+    }
+
+    @media #{$mq-tablet} {
+        p {
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 30em;
+        }
+    }
+
+    @media #{$mq-desktop} {
+        background-position: bottom right 40px;
+        min-height: 318px;
+        padding-bottom: 0;
+        padding-right: 50%;
+        text-align: left;
+
+        p {
+            max-width: none;
+        }
+    }
+
+    @media #{$mq-desktop-wide} {
+        background-position: bottom right 100px;
+    }
+}
+
+#firefox {
+    h2,
+    h3 {
+        color: $color-quantum-blue;
+
+        &:before {
+            background-color: $color-quantum-blue;
+        }
+    }
+
+    .features-scroller-section.page-section .feature-content em {
+        color: $color-quantum-blue;
+    }
+
+    .page-article-heading {
+        @include at2x('/media/img/firefox/mobile/intro-firefox.png', 280px, 253px);
+    }
+
+    @media #{$mq-phone-wide} {
+        .page-article-heading {
+            @include at2x('/media/img/firefox/mobile/intro-firefox.png', 352px, 318px);
+        }
+    }
+}
+
+#focus {
+    h2,
+    h3 {
+        color: $color-focus-purple;
+
+        &:before {
+            background-color: $color-focus-purple;
+        }
+    }
+
+    .features-scroller-section.page-section .feature-content em {
+        color: $color-focus-purple;
+    }
+
+    .page-article-heading {
+        @include at2x('/media/img/firefox/mobile/intro-focus.png', 280px, 253px);
+    }
+
+    @media #{$mq-phone-wide} {
+        .page-article-heading {
+            @include at2x('/media/img/firefox/mobile/intro-focus.png', 352px, 318px);
+        }
+    }
+}
+
+.page-nav {
+    color: #fff;
+    display: none;
+
+    a {
+        color: #fff;
+        text-decoration: none;
+    }
+}
+
+.features {
+    margin: 1.5em 1em;
+
+    li {
+        padding: 20px 0;
+
+        &:before {
+            background-position: center center;
+            background-repeat: no-repeat;
+            content: '';
+            display: block;
+            height: 40px;
+            margin: 0 auto 1em;
+            width: 40px;
+        }
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        &.feature-sync:before {
+            background-image: url('/media/img/firefox/mobile/icon-sync.svg');
+        }
+
+        &.feature-send-tabs:before {
+            background-image: url('/media/img/firefox/mobile/icon-send-tabs.svg');
+        }
+
+        &.feature-stop:before {
+            background-image: url('/media/img/firefox/mobile/icon-stop.svg');
+        }
+
+        &.feature-clear-cookies:before {
+            background-image: url('/media/img/firefox/mobile/icon-clear-cookies.svg');
+        }
+
+        &.feature-extensions:before {
+            background-image: url('/media/img/firefox/mobile/icon-extensions.svg');
+        }
+
+        &.feature-themes:before {
+            background-image: url('/media/img/firefox/mobile/icon-themes.svg');
+        }
+
+        &.feature-block:before {
+            background-image: url('/media/img/firefox/mobile/icon-block.svg');
+        }
+
+        &.feature-erase:before {
+            background-image: url('/media/img/firefox/mobile/icon-erase.svg');
+        }
+
+        &.feature-speed:before {
+            background-image: url('/media/img/firefox/mobile/icon-speed.svg');
+        }
+
+        &.feature-lightweight:before {
+            background-image: url('/media/img/firefox/mobile/icon-lightweight.svg');
+        }
+    }
+
+    @media #{$mq-tablet} {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 30em;
+
+        li {
+            border-bottom: 1px solid #b1b1b3;
+            padding-left: 60px;
+            position: relative;
+            text-align: left;
+
+            &:before {
+                background-position: center left;
+                left: 0;
+                margin-top: -20px;
+                padding-right: 10px;
+                position: absolute;
+                top: 50%;
+            }
+        }
+    }
+
+    strong {
+        display: block;
+    }
+}
+
+#modal-outer-wrapper {
+    //display: none;
+}
