@@ -1,0 +1,91 @@
+{# This Source Code Form is subject to the terms of the Mozilla Public
+ # License, v. 2.0. If a copy of the MPL was not distributed with this
+ # file, You can obtain one at http://mozilla.org/MPL/2.0/. -#}
+
+{% extends "base-pebbles.html" %}
+
+{% add_lang_files "firefox/retention/thank-you" %}
+
+{% block page_title %}
+  {{ _('Thank You') }}
+{% endblock %}
+
+{% block page_title_suffix %}{% endblock %}
+
+{% block page_desc %}
+  {{ _('Thank you page.') }}
+{% endblock %}
+
+{% block page_css %}
+  {% stylesheet 'etc-firefox-retention-thank-you-referral' %}
+{% endblock %}
+
+{% block site_header %}{% endblock %}
+
+{% block content %}
+<main>
+  <canvas id="confetti-canvas"></canvas>
+  <header>
+    <h1>
+    {% if LANG.startswith('en') %}
+      <span class="white">It’s all</span><br/>
+      thanks to you
+    {% else %}
+      {{ _('It’s all thanks to you') }}
+    {% endif %}
+    </h1>
+    <p>
+      {{ _('Choosing Firefox helps Mozilla make the Internet a better place. Here’s what you can do next:') }}
+    </p>
+  </header>
+
+  <section>
+    <article>
+      <h2>{{ _('Help recruit others in the fight for an open web') }}</h2>
+
+      <ul class="share-options">
+        <li class="share-opt-email">
+          <span>{{ _('Send an email') }}</span>
+          {% set email_subject = _('New Firefox, check it out') %}
+          {% set email_body = _('Hey, %0D%0DFirefox just released a brand new super fast browser. I thought you’d want to try it out. %0D%0DCheck it out and let me know what you think%3A %0D%0D') %}
+          {% set link_gmail = 'https://mzl.la/foo' %}
+          {% set link_yahoo = 'https://mzl.la/bar' %}
+          {% set link_outlook = 'https://mzl.la/baz' %}
+          {% set link_other = 'https://mzl.la/bam' %}
+          <ul class="email-links">
+            <li><a class="mail-gmail" data-link-type="link" data-link-name="Send an email - Gmail" href="{{ 'https://mail.google.com/mail/?view=cm&fs=1&to=someone@example.com&cc=someone.else@example.com&su=%s&body=%s%s'|format(email_subject, email_body, link_gmail|urlencode)|e }}">{{ _('Gmail') }}</a></li>
+            <li><a class="mail-yahoo" data-link-type="link" data-link-name="Send an email - Yahoo" href="{{ 'https://compose.mail.yahoo.com/?to=someone@example.com&subject=%s&body=%s%s'|format(email_subject, email_body, link_yahoo|urlencode)|e }}">{{ _('Yahoo Mail') }}</a></li>
+            <li><a class="mail-outlook" data-link-type="link" data-link-name="Send an email - Outlook" href="{{ 'https://mail.live.com/mail/EditMessageLight.aspx?n=&to=someone@example.com&cc=someone.else@example.com&subject=%s&body=%s%s'|format(email_subject, email_body, link_outlook)|e }}">{{ _('Outlook.com') }}</a></li>
+            <li><a class="mail-other" data-link-type="link" data-link-name="Send an email - Other" href="{{ 'mailto:someone@example.com?cc=someone.else@example.com&subject=%s&body=%s%s'|format(email_subject, email_body, link_other|urlencode)|e }}">{{ _('Other') }}</a></li>
+          </ul>
+        </li>
+
+        <li class="share-opt-facebook">
+          <a data-link-type="link" data-link-name="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?s=100&p[url]=https://www.mozilla.org/firefox/new/&utm_source=facebook&utm_medium=social&utm_campaign=desktop-referral-loop-v1">{{ _('Share on Facebook') }}</a>
+        </li>
+
+        <li class="share-opt-twitter">
+          <a data-link-type="link" data-link-name="Send a tweet" href="{{ 'https://www.twitter.com/intent/tweet?url=%s&text=%s%s'|format('https://mozilla.org/firefox/new'|urlencode, '%F0%9F%94%A5%2B%F0%9F%A6%8A=%F0%9F%99%8C%F0%9F%8F%BE%20', _('Join me in the fight for an open web by choosing Firefox!')|urlencode)|e }}">{{ _('Send a tweet') }}</a>
+        </li>
+      </ul>
+    </article>
+  </section>
+</main>
+
+<aside id="newsletter-subscribe">
+  <div class="content">
+    {{ email_newsletter_form(newsletters='mozilla-foundation',
+       title=_('Stay in touch for more cool stuff'),
+       subtitle=_('Get the latest & greatest from Firefox delivered straight to your inbox.'),
+       button_class='button-light',
+       spinner_color='#fff')
+    }}
+  </div>
+</aside>
+{% endblock %}
+
+{% block js %}
+  {% javascript 'etc-firefox-retention-thank-you' %}
+{% endblock %}
+
+{% block body_id %}thank-you{% endblock %}
